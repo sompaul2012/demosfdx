@@ -1,0 +1,10 @@
+<aura:component>
+  <aura:attribute name="errormessage" type="String"/>
+  <aura:method name="callApex" action="{!c.onCallApex}">
+    <aura:attribute name="component" type="Aura.Component" />
+    <aura:attribute name="controllerMethod" type="String" />
+    <aura:attribute name="actionParameters" type="Object" />
+    <aura:attribute name="successCallback" type="Object" />
+    <aura:attribute name="reference" type="Object" />
+  </aura:method>
+</aura:component>

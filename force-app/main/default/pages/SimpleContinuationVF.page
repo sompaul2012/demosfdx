@@ -1,0 +1,42 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" 
+           applyHtmlTag="false" applyBodyTag="false" docType="html-5.0"
+ 			controller="SimpleContinuationController">
+
+	<html>
+
+	<head>
+
+		<script>
+        console.log('within the VF page');
+			var lcBaseURL = "https://summer19preorg-dev-ed.lightning.force.com";
+
+			// Listen for messages from the Lightning Component
+			window.addEventListener("message", function (event) {
+				if (event.origin !== lcBaseURL) {
+					// Not the expected origin: reject message
+					return;
+				}
+                console.log('value of event data topic'+event.data.topic);
+				// Only handle messages we are interested in            
+				if (event.data.topic === "com.mycompany.message") {
+					var productId = event.data.productId;
+					var latency = event.data.latency;
+					Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.SimpleContinuationController.getProduct}', productId, latency, function (result) {
+						// Send result to Lightning Component
+                        console.log('result returned'+result);
+						var message = {
+							topic: "com.mycompany.message",
+							result: result
+						};
+						parent.postMessage(message, lcBaseURL);
+					});
+				}
+			}, false);
+
+		</script>
+
+	</head>
+
+	</html>
+
+</apex:page>

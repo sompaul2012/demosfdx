@@ -1,0 +1,54 @@
+<aura:component controller= "ApexContinuationClass" 
+                implements="flexipage:availableForRecordHome,force:hasRecordId,force:appHostable" access="global" >
+    <aura:attribute name="Response" type="Object"/>
+    <aura:attribute name="ProductId" type="Integer"/>
+    <aura:attribute name="Latency" type="Integer"/>
+    <aura:attribute name="description" type="String"/>
+    <aura:attribute name="imgage" type="String"/>
+    <aura:attribute name="category" type="String"/>
+    <aura:attribute name="prodName" type="String"/>
+    <aura:attribute name="successcallback" type="boolean" default="false"/>
+    <c:ApexCallingServiceComponent aura:id="Service"/>
+    <!--<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>-->
+    
+    <lightning:card title="Get Product Details">
+        <div class="row">
+            <div class="slds-grid slds-grid_align-space slds-box">
+                <lightning:layout multipleRows="true">
+                    <lightning:layoutItem size="6">
+                             <lightning:input type="number" name="input1" label="Product Id" value="{!v.ProductId}"/>
+                        </lightning:layoutItem>
+                    <lightning:layoutItem size="6">
+                             <lightning:input type="number" name="input2" label="Simulated Latency(ms)" value="{!v.Latency}"/>
+                        </lightning:layoutItem>
+                </lightning:layout>
+            </div>
+           <lightning:button variant="Brand" label="Get Product"
+                              title="Base action" onclick="{!c.doInit}"/>
+            <aura:if isTrue="{!v.successcallback}">
+                <!--<ui:outputRichText class="slds-text-longform" value="{!v.Response}"/>-->
+                <div class="slds-grid slds-grid_align-space slds-box">
+                    <lightning:layout multipleRows="true">
+                        <lightning:layoutItem size="6">
+                             <img src="{!v.imgage}" alt="Smiley face" height="200" width="200"/>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="6">
+                            <p class="slds-p-horizontal_small">
+                                {!v.description}
+                            </p>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="6">
+                            Name : <ui:outputText value="{!v.prodName}"/>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="6">
+                            Category : <ui:outputText value="{!v.category}"/>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </div>
+            </aura:if> 
+            
+        </div>
+        
+    </lightning:card>
+    
+</aura:component>

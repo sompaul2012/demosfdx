@@ -1,0 +1,20 @@
+<apex:page >
+	<apex:includeLightning />
+	<div id="container">
+  </div>
+  
+  <script>
+    $Lightning.use("c:lwcContainerApp", function()
+    {
+      $Lightning.createComponent(
+      "c:demolwcforLighntingout",
+      {'greeting':'Somnath'},
+      "container",
+      function(cmp)
+      {
+        console.log('component created');
+        console.log(window.location.search);
+      });
+    });
+    </script>
+</apex:page>
